@@ -1,7 +1,14 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import VueMacros from "unplugin-vue-macros/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue()],
-})
+  plugins: [
+    VueMacros({
+      plugins: {
+        vue: vue(),
+      },
+    }) as any,
+  ],
+});
