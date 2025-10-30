@@ -1,14 +1,10 @@
+import type { App } from "vue";
 import Button from "./Button.vue";
-import type {
-  ButtonProps,
-  ButtonInstance,
-  ButtonType,
-  ButtonSize,
-  NativeType,
-} from "./types";
 
-export const VkButton = Button;
+Button.install = (app: App) => {
+  app.component(Button.name as string, Button);
+};
 
-export type { ButtonProps, ButtonInstance, ButtonType, ButtonSize, NativeType };
+export default Button;
 
-export default VkButton;
+export * from "./types";

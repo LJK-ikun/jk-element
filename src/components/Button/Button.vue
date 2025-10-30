@@ -25,7 +25,9 @@
     :type="nativeType"
   >
     <span>
-      <slot />
+      <slot>
+        <!-- 插槽内容 -->
+      </slot>
     </span>
   </button>
 </template>
@@ -33,7 +35,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { ButtonProps } from "./types";
-import Icon from "../Icon/Icon.vue";
 
 // 定义组件选项，设置组件名称为 "VkButton"
 // 这个名称会在 Vue DevTools 中显示，也用于组件递归引用
@@ -61,5 +62,6 @@ defineExpose({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style>
+@import "./style.scss";
+</style>

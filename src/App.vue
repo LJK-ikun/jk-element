@@ -16,7 +16,7 @@ onMounted(() => {
   </header>
   <main>
     <Button type="primary" plain disabled ref="buttonRef">主要按钮</Button>
-    <Button type="success">成功按钮</Button>
+    <Button type="success" round>成功按钮</Button>
     <Button type="warning">警告按钮</Button>
     <Button type="danger">危险按钮</Button>
   </main>
