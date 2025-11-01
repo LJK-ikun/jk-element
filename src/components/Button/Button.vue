@@ -63,5 +63,5 @@ defineExpose({
 </script>
 
 <style>
-@import "./style.scss";
+/* 样式已通过 main.ts 统一导入 */
 </style>
