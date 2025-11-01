@@ -180,6 +180,13 @@ main {
   margin-bottom: 0;
 }
 
+.collapse-demo h3 {
+  color: #606266;
+  font-size: 1.2rem;
+  font-weight: 700; /* 加粗 - 从500增加到700 */
+  margin-bottom: 1rem;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   main {
