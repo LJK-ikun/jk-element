@@ -28,6 +28,7 @@ onMounted(() => {
   <header>
     <h1>JK-Element 组件库</h1>
   </header>
+  <font-awesome-icon icon="fa-solid fa-user-secret" />
   <main>
     <!-- Button 组件展示 -->
     <section class="component-section">

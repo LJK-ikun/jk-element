@@ -71,4 +71,4 @@ const transitionEvents: Record<string, (el: HTMLElement) => void> = {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>
