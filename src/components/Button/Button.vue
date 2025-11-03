@@ -24,6 +24,8 @@
     :autofocus="autofocus"
     :type="nativeType"
   >
+    <Icon icon="spinner" spin v-if="loading" />
+    <Icon :icon="icon" v-if="icon" />
     <span>
       <slot>
         <!-- 插槽内容 -->
@@ -35,6 +37,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { ButtonProps } from "./types";
+import Icon from "../Icon/Icon.vue";
 
 // 定义组件选项，设置组件名称为 "VkButton"
 // 这个名称会在 Vue DevTools 中显示，也用于组件递归引用
