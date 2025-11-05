@@ -3,8 +3,10 @@ import { ref, onMounted } from "vue";
 import Button from "./components/Button/Button.vue";
 import Collapse from "./components/Collapse/Collapse.vue";
 import { CollapseItem } from "./components/Collapse";
+import Alert from "./components/Alert/Alert.vue";
 import type { ButtonInstance } from "./components/Button/types";
 import type { NameType } from "./components/Collapse/types";
+import type { AlertInstance } from "./components/Alert/types";
 
 const buttonRef = ref<ButtonInstance | null>(null);
 
@@ -12,9 +14,21 @@ const buttonRef = ref<ButtonInstance | null>(null);
 const activeNames = ref<NameType[]>(["1", "2"]);
 const accordionActiveNames = ref<NameType[]>(["1"]);
 
+// Alert组件的响应式数据
+const alertRef = ref<AlertInstance | null>(null);
+const showSuccessAlert = ref(true);
+const showWarningAlert = ref(true);
+const showErrorAlert = ref(true);
+const showInfoAlert = ref(true);
+
 // Collapse change事件处理
 const handleChange = (values: NameType[]) => {
   console.log("Collapse changed:", values);
+};
+
+// Alert事件处理
+const handleAlertClose = (type: string) => {
+  console.log(`${type} Alert closed`);
 };
 
 onMounted(() => {
@@ -118,6 +132,145 @@ onMounted(() => {
         </Collapse>
       </div>
     </section>
+
+    <!-- Alert 组件展示 -->
+    <section class="component-section">
+      <h2>Alert 警告提示</h2>
+
+      <!-- 基础用法 -->
+      <div class="alert-demo">
+        <h3>基础用法</h3>
+        <div class="alert-list">
+          <Alert
+            v-if="showSuccessAlert"
+            type="success"
+            title="成功提示"
+            @close="handleAlertClose('success')"
+          />
+          <Alert
+            v-if="showWarningAlert"
+            type="warning"
+            title="警告提示"
+            @close="handleAlertClose('warning')"
+          />
+          <Alert
+            v-if="showErrorAlert"
+            type="error"
+            title="错误提示"
+            @close="handleAlertClose('error')"
+          />
+          <Alert
+            v-if="showInfoAlert"
+            type="info"
+            title="信息提示"
+            @close="handleAlertClose('info')"
+          />
+        </div>
+      </div>
+
+      <!-- 带图标和描述 -->
+      <div class="alert-demo">
+        <h3>带图标和描述</h3>
+        <div class="alert-list">
+          <Alert
+            type="success"
+            title="成功"
+            description="恭喜你，操作成功完成！"
+            :show-icon="true"
+            @close="handleAlertClose('success-desc')"
+          />
+          <Alert
+            type="warning"
+            title="警告"
+            description="请注意，此操作可能存在风险。"
+            :show-icon="true"
+            @close="handleAlertClose('warning-desc')"
+          />
+          <Alert
+            type="error"
+            title="错误"
+            description="抱歉，操作失败，请重试。"
+            :show-icon="true"
+            @close="handleAlertClose('error-desc')"
+          />
+        </div>
+      </div>
+
+      <!-- 居中显示 -->
+      <div class="alert-demo">
+        <h3>居中显示</h3>
+        <div class="alert-list">
+          <Alert
+            type="info"
+            title="信息提示"
+            description="这是一个居中显示的Alert组件"
+            :center="true"
+            :show-icon="true"
+            @close="handleAlertClose('center')"
+          />
+        </div>
+      </div>
+
+      <!-- 不同效果 -->
+      <div class="alert-demo">
+        <h3>不同效果</h3>
+        <div class="alert-list">
+          <Alert
+            type="info"
+            title="浅色效果"
+            description="默认的浅色效果"
+            effect="light"
+            :show-icon="true"
+          />
+          <Alert
+            type="warning"
+            title="深色效果"
+            description="深色背景效果"
+            effect="dark"
+            :show-icon="true"
+          />
+        </div>
+      </div>
+
+      <!-- 不可关闭 -->
+      <div class="alert-demo">
+        <h3>不可关闭</h3>
+        <div class="alert-list">
+          <Alert
+            type="success"
+            title="不可关闭的提示"
+            description="这个Alert没有关闭按钮"
+            :closable="false"
+            :show-icon="true"
+          />
+        </div>
+      </div>
+
+      <!-- 控制按钮 -->
+      <div class="alert-controls">
+        <Button @click="showSuccessAlert = !showSuccessAlert">
+          {{ showSuccessAlert ? "隐藏" : "显示" }} 成功提示
+        </Button>
+        <Button @click="showWarningAlert = !showWarningAlert" type="success">
+          {{ showWarningAlert ? "隐藏" : "显示" }} 警告提示
+        </Button>
+        <Button @click="alertRef?.close()" type="danger">
+          关闭引用Alert
+        </Button>
+        <Button @click="alertRef?.open()" type="primary">
+          打开引用Alert
+        </Button>
+      </div>
+
+      <!-- 带ref的Alert用于方法调用 -->
+      <Alert
+        ref="alertRef"
+        type="info"
+        title="可编程控制的Alert"
+        description="这个Alert可以通过ref控制显示和隐藏"
+        :show-icon="true"
+      />
+    </section>
   </main>
 </template>
 
@@ -207,6 +360,26 @@ main {
   h1 {
     font-size: 2rem;
   }
+}
+
+/* Alert组件样式 */
+.alert-demo {
+  margin-bottom: 2rem;
+}
+
+.alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alert-controls {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ebeef5;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 /* 过渡动画 */

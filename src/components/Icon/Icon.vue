@@ -1,6 +1,11 @@
 <template>
-  <i class="vk-icon" :class="{ [`vk-icon--${type}`]: type }">
-    <font-awesome-icon v-bind="$props" />
+  <i
+    class="vk-icon"
+    :class="{ [`vk-icon--${type}`]: type }"
+    :style="customStyles"
+    v-bind="$attrs"
+  >
+    <font-awesome-icon v-bind="filteredProps" />
   </i>
 </template>
 <script setup lang="ts">
@@ -13,7 +18,7 @@ defineOptions({
   inheritAttrs: false,
 });
 const props = defineProps<IconProps>();
-const filteredProps = omit(props, ["type", "color"]);
+const filteredProps = computed(() => omit(props, ["type", "color"]));
 const customStyles = computed(() => {
   return props.color ? { color: props.color } : {};
 });

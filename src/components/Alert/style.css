@@ -1,0 +1,195 @@
+/* Alert组件整体布局 */
+.er-alert {
+  display: flex; /* 使用flex布局实现横向排列 */
+  align-items: flex-start; /* 顶部对齐，适应多行文本 */
+  padding: var(--vk-font-size-base) calc(var(--vk-font-size-base) * 2); /* 内边距：使用变量 */
+  border-radius: var(--vk-border-radius-base); /* 圆角边框 */
+  position: relative; /* 相对定位，为子元素提供定位参考 */
+}
+
+/* Alert图标样式 */
+.er-alert__icon {
+  margin-right: var(--vk-font-size-base); /* 图标与内容的右侧间距 */
+  margin-top: 2px; /* 图标顶部微调，与文字对齐 */
+  flex-shrink: 0; /* 防止图标被压缩 */
+  font-size: var(--vk-font-size-base); /* 图标基础大小 */
+  line-height: 1; /* 行高为1，避免额外空间 */
+}
+
+/* Alert内容容器 */
+.er-alert__content {
+  flex: 1; /* 占据剩余空间 */
+  min-width: 0; /* 防止内容溢出 */
+  margin-right: var(--vk-font-size-base); /* 为关闭按钮留出空间 */
+}
+
+/* Alert标题样式 */
+.er-alert__title {
+  font-weight: 600; /* 标题加粗 */
+  margin-bottom: 4px; /* 标题与描述的间距 */
+  display: block; /* 块级显示 */
+  font-size: var(--vk-font-size-base); /* 使用变量字体大小 */
+}
+
+/* 带描述的标题样式 */
+.er-alert__title.with-desc {
+  margin-bottom: var(--vk-font-size-small); /* 有描述时增加间距 */
+  font-size: var(--vk-font-size-small); /* 字体稍小 */
+}
+
+/* Alert描述文本 */
+.er-alert__description {
+  margin: 0; /* 清除默认边距 */
+  font-size: var(--vk-font-size-small); /* 描述文字稍小 */
+  line-height: 1.4; /* 行高适中，便于阅读 */
+  color: var(--vk-text-color-regular); /* 使用变量颜色 */
+}
+
+/* 关闭按钮容器 - 修复布局问题 */
+.er-alert__close {
+  position: absolute; /* 绝对定位 */
+  top: var(--vk-font-size-base); /* 顶部对齐 */
+  right: var(--vk-font-size-base); /* 右侧对齐 */
+  cursor: pointer; /* 鼠标悬停时显示手型指针 */
+  flex-shrink: 0; /* 防止关闭按钮被压缩 */
+  display: flex; /* flex布局，居中对齐图标 */
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  width: calc(var(--vk-font-size-base) * 1.5); /* 使用变量计算宽度 */
+  height: calc(var(--vk-font-size-base) * 1.5); /* 使用变量计算高度 */
+  border-radius: 50%; /* 圆形背景 */
+  transition: all var(--vk-transition-duration-fast) ease; /* 使用变量过渡动画 */
+  font-size: calc(var(--vk-font-size-small) * 0.8); /* 关闭图标大小 */
+  opacity: 0.6; /* 默认半透明 */
+}
+
+/* 关闭按钮悬停效果 */
+.er-alert__close:hover {
+  opacity: 1; /* 悬停时完全不透明 */
+  background-color: var(--vk-fill-color-light); /* 使用变量背景色 */
+}
+
+/* 不同类型的背景色和图标颜色 */
+.er-alert__success {
+  background-color: var(--vk-color-success-light-9);
+  border: 1px solid var(--vk-color-success-light-7);
+  color: var(--vk-color-success-dark-2);
+}
+
+.er-alert__success .er-alert__icon {
+  color: var(--vk-color-success);
+}
+
+.er-alert__success .er-alert__close {
+  color: var(--vk-color-success-dark-2);
+}
+
+.er-alert__warning {
+  background-color: var(--vk-color-warning-light-9);
+  border: 1px solid var(--vk-color-warning-light-7);
+  color: var(--vk-color-warning-dark-2);
+}
+
+.er-alert__warning .er-alert__icon {
+  color: var(--vk-color-warning);
+}
+
+.er-alert__warning .er-alert__close {
+  color: var(--vk-color-warning-dark-2);
+}
+
+.er-alert__error {
+  background-color: var(--vk-color-error-light-9);
+  border: 1px solid var(--vk-color-error-light-7);
+  color: var(--vk-color-error-dark-2);
+}
+
+.er-alert__error .er-alert__icon {
+  color: var(--vk-color-error);
+}
+
+.er-alert__error .er-alert__close {
+  color: var(--vk-color-error-dark-2);
+}
+
+.er-alert__info {
+  background-color: var(--vk-color-info-light-9);
+  border: 1px solid var(--vk-color-info-light-7);
+  color: var(--vk-color-info-dark-2);
+}
+
+.er-alert__info .er-alert__icon {
+  color: var(--vk-color-info);
+}
+
+.er-alert__info .er-alert__close {
+  color: var(--vk-color-info-dark-2);
+}
+
+/* 深色效果 */
+.er-alert__dark {
+  border-color: var(--vk-border-color);
+}
+
+.er-alert__dark.er-alert__success {
+  background-color: var(--vk-color-success);
+  color: var(--vk-color-white);
+}
+
+.er-alert__dark.er-alert__warning {
+  background-color: var(--vk-color-warning);
+  color: var(--vk-color-white);
+}
+
+.er-alert__dark.er-alert__error {
+  background-color: var(--vk-color-error);
+  color: var(--vk-color-white);
+}
+
+.er-alert__dark.er-alert__info {
+  background-color: var(--vk-color-info);
+  color: var(--vk-color-white);
+}
+
+.er-alert__dark .er-alert__icon,
+.er-alert__dark .er-alert__close {
+  color: var(--vk-color-white);
+}
+
+/* 居中模式下的布局调整 */
+.er-alert.text-center {
+  justify-content: center; /* 整体内容居中 */
+}
+
+.er-alert.text-center .er-alert__icon {
+  margin-right: 8px; /* 保持图标间距 */
+  margin-top: 0; /* 居中时无需顶部偏移 */
+}
+
+/* 动画效果 */
+.er-alert-fade-enter-from,
+.er-alert-fade-leave-to {
+  opacity: 0; /* 进入和离开时透明 */
+  transform: translateY(-20px); /* 从上方20px位置进入/离开 */
+}
+
+.er-alert-fade-enter-active,
+.er-alert-fade-leave-active {
+  transition: all 0.3s ease; /* 过渡动画：透明度和位移 */
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .er-alert {
+    padding: 12px; /* 移动端增加内边距 */
+  }
+
+  .er-alert__icon {
+    font-size: 18px; /* 移动端图标稍大 */
+  }
+
+  .er-alert__close {
+    width: 24px; /* 移动端关闭按钮更大 */
+    height: 24px;
+  }
+}
