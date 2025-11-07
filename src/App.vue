@@ -4,9 +4,11 @@ import Button from "./components/Button/Button.vue";
 import Collapse from "./components/Collapse/Collapse.vue";
 import { CollapseItem } from "./components/Collapse";
 import Alert from "./components/Alert/Alert.vue";
+import Tooltip from "./components/Tooltip/Tooltip.vue";
 import type { ButtonInstance } from "./components/Button/types";
 import type { NameType } from "./components/Collapse/types";
 import type { AlertInstance } from "./components/Alert/types";
+import type { TooltipInstance } from "./components/Tooltip/types";
 
 const buttonRef = ref<ButtonInstance | null>(null);
 
@@ -20,6 +22,10 @@ const showSuccessAlert = ref(true);
 const showWarningAlert = ref(true);
 const showErrorAlert = ref(true);
 const showInfoAlert = ref(true);
+
+// Tooltip组件的响应式数据
+const tooltipRef = ref<TooltipInstance | null>(null);
+const manualTooltipVisible = ref(false);
 
 // Collapse change事件处理
 const handleChange = (values: NameType[]) => {
@@ -271,6 +277,203 @@ onMounted(() => {
         :show-icon="true"
       />
     </section>
+
+    <!-- Tooltip 组件展示 -->
+    <section class="component-section">
+      <h2>Tooltip 工具提示</h2>
+
+      <!-- 基础用法 -->
+      <div class="tooltip-demo">
+        <h3>基础用法</h3>
+        <div class="tooltip-list">
+          <Tooltip content="这是一个基础的提示信息">
+            <Button type="primary">悬停显示</Button>
+          </Tooltip>
+          <Tooltip content="支持不同类型的触发方式">
+            <Button type="success">成功按钮</Button>
+          </Tooltip>
+          <Tooltip content="可以包含丰富的文本内容">
+            <Button type="warning">警告按钮</Button>
+          </Tooltip>
+          <Tooltip content="支持自定义各种属性">
+            <Button type="danger">危险按钮</Button>
+          </Tooltip>
+        </div>
+      </div>
+
+      <!-- 不同位置 -->
+      <div class="tooltip-demo">
+        <h3>不同位置</h3>
+        <div class="tooltip-placement">
+          <div class="placement-row">
+            <Tooltip placement="top-start" content="上左">
+              <Button type="primary">上左</Button>
+            </Tooltip>
+            <Tooltip placement="top" content="正上">
+              <Button type="primary">正上</Button>
+            </Tooltip>
+            <Tooltip placement="top-end" content="上右">
+              <Button type="primary">上右</Button>
+            </Tooltip>
+          </div>
+          <div class="placement-row">
+            <Tooltip placement="left-start" content="左上">
+              <Button type="success">左上</Button>
+            </Tooltip>
+            <Tooltip placement="right-start" content="右上">
+              <Button type="success">右上</Button>
+            </Tooltip>
+          </div>
+          <div class="placement-row">
+            <Tooltip placement="left" content="正左">
+              <Button type="warning">正左</Button>
+            </Tooltip>
+            <Tooltip placement="right" content="正右">
+              <Button type="warning">正右</Button>
+            </Tooltip>
+          </div>
+          <div class="placement-row">
+            <Tooltip placement="left-end" content="左下">
+              <Button type="danger">左下</Button>
+            </Tooltip>
+            <Tooltip placement="right-end" content="右下">
+              <Button type="danger">右下</Button>
+            </Tooltip>
+          </div>
+          <div class="placement-row">
+            <Tooltip placement="bottom-start" content="下左">
+              <Button type="info">下左</Button>
+            </Tooltip>
+            <Tooltip placement="bottom" content="正下">
+              <Button type="info">正下</Button>
+            </Tooltip>
+            <Tooltip placement="bottom-end" content="下右">
+              <Button type="info">下右</Button>
+            </Tooltip>
+          </div>
+        </div>
+      </div>
+
+      <!-- 不同触发方式 -->
+      <div class="tooltip-demo">
+        <h3>不同触发方式</h3>
+        <div class="tooltip-list">
+          <Tooltip content="hover 触发（默认）" trigger="hover">
+            <Button type="primary">Hover 触发</Button>
+          </Tooltip>
+          <Tooltip content="click 触发，点击按钮显示" trigger="click">
+            <Button type="success">Click 触发</Button>
+          </Tooltip>
+          <Tooltip content="手动模式，需要编程控制" :manual="true">
+            <Button type="warning">手动模式</Button>
+          </Tooltip>
+        </div>
+      </div>
+
+      <!-- 延迟控制 -->
+      <div class="tooltip-demo">
+        <h3>延迟控制</h3>
+        <div class="tooltip-list">
+          <Tooltip content="显示延迟 1 秒" :open-delay="1000">
+            <Button type="primary">延迟显示</Button>
+          </Tooltip>
+          <Tooltip content="隐藏延迟 1 秒" :close-delay="1000">
+            <Button type="success">延迟隐藏</Button>
+          </Tooltip>
+          <Tooltip
+            content="显示延迟 1 秒，隐藏延迟 2 秒"
+            :open-delay="1000"
+            :close-delay="2000"
+          >
+            <Button type="warning">双向延迟</Button>
+          </Tooltip>
+        </div>
+      </div>
+
+      <!-- 自定义内容 -->
+      <div class="tooltip-demo">
+        <h3>自定义内容</h3>
+        <div class="tooltip-list">
+          <Tooltip>
+            <Button type="primary">自定义内容</Button>
+            <template #content>
+              <div style="text-align: center">
+                <strong>自定义内容</strong>
+                <p>支持 HTML 内容</p>
+                <Icon icon="star" style="color: gold" />
+              </div>
+            </template>
+          </Tooltip>
+          <Tooltip>
+            <Button type="success">复杂内容</Button>
+            <template #content>
+              <div style="max-width: 200px">
+                <h4 style="margin: 0 0 8px 0; color: #409eff">操作提示</h4>
+                <p style="margin: 0; font-size: 12px; line-height: 1.4">
+                  这是一个包含标题、正文和图标的复杂工具提示内容。
+                </p>
+                <div style="margin-top: 8px; text-align: center">
+                  <Icon
+                    icon="info-circle"
+                    style="color: #409eff; margin-right: 4px"
+                  />
+                  <span style="font-size: 11px">了解更多</span>
+                </div>
+              </div>
+            </template>
+          </Tooltip>
+        </div>
+      </div>
+
+      <!-- 编程式控制 -->
+      <div class="tooltip-demo">
+        <h3>编程式控制</h3>
+        <div class="tooltip-controls">
+          <Tooltip
+            ref="tooltipRef"
+            content="通过 ref 控制显示/隐藏的 Tooltip"
+            :manual="true"
+          >
+            <Button type="primary">可编程控制</Button>
+          </Tooltip>
+          <Button
+            @click="tooltipRef?.show()"
+            type="success"
+            style="margin-left: 10px"
+          >
+            显示 Tooltip
+          </Button>
+          <Button
+            @click="tooltipRef?.hide()"
+            type="danger"
+            style="margin-left: 10px"
+          >
+            隐藏 Tooltip
+          </Button>
+        </div>
+      </div>
+
+      <!-- 手动控制示例 -->
+      <div class="tooltip-demo">
+        <h3>手动控制示例</h3>
+        <div class="tooltip-controls">
+          <Tooltip
+            content="这个 Tooltip 的显示状态由按钮控制"
+            :manual="true"
+            v-model:visible="manualTooltipVisible"
+          >
+            <Button type="warning">手动控制</Button>
+          </Tooltip>
+          <Button
+            @click="manualTooltipVisible = !manualTooltipVisible"
+            type="info"
+            style="margin-left: 10px"
+          >
+            {{ manualTooltipVisible ? "隐藏" : "显示" }} Tooltip
+          </Button>
+        </div>
+      </div>
+    </section>
   </main>
 </template>
 
@@ -380,6 +583,68 @@ main {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+/* Tooltip组件样式 */
+.tooltip-demo {
+  margin-bottom: 2rem;
+}
+
+.tooltip-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tooltip-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tooltip-placement {
+  display: inline-block;
+  text-align: center;
+  border: 1px solid var(--vk-border-color-light);
+  border-radius: var(--vk-border-radius-base);
+  padding: 20px;
+  background: var(--vk-fill-color-light);
+}
+
+.placement-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  min-width: 300px;
+}
+
+.placement-row:last-child {
+  margin-bottom: 0;
+}
+
+/* 响应式设计调整 */
+@media (max-width: 768px) {
+  .tooltip-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .tooltip-placement {
+    transform: scale(0.8);
+    margin: 0 auto;
+  }
+
+  .placement-row {
+    min-width: 250px;
+  }
+
+  .tooltip-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* 过渡动画 */

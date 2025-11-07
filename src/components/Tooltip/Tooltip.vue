@@ -16,8 +16,8 @@
 
 <script setup lang="ts">
 import { placements } from "@popperjs/core";
-import type { TooltipProps, TooltipEmits } from "./types";
-import { reactive, ref, watch, computed } from "vue";
+import type { TooltipProps, TooltipEmits, TooltipInstance } from "./types";
+import { reactive, ref, watch, computed, onUnmounted } from "vue";
 import { createPopper } from "@popperjs/core";
 import type { Instance } from "@popperjs/core";
 import { debounce } from "lodash-es";
@@ -144,4 +144,11 @@ watch(
   },
   { flush: "post" }
 );
+onUnmounted(() => {
+  popperInstance?.destroy();
+});
+defineExpose<TooltipInstance>({
+  show: openFinal,
+  hide: closeFinal,
+});
 </script>
