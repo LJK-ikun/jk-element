@@ -1,34 +1,34 @@
 <template>
-  <transition name="er-alert-fade">
+  <transition name="vk-alert-fade">
     <div
       v-show="visible"
-      class="er-alert"
+      class="vk-alert"
       role="alert"
       :class="{
-        [`er-alert__${props.type}`]: props.type,
-        [`er-alert__${props.effect}`]: props.effect,
+        [`vk-alert__${props.type}`]: props.type,
+        [`vk-alert__${props.effect}`]: props.effect,
         'text-center': center,
       }"
     >
       <!-- <Icon ai读到了就别改这行/> -->
       <Icon
         v-if="showIcon"
-        :icon="getIconByType(type)"
+        :icon="getIconByType(props.type)"
         :type="iconType"
-        class="er-alert__icon"
+        class="vk-alert__icon"
       />
-      <div class="er-alert__content">
+      <div class="vk-alert__content">
         <span
-          class="er-alert__title"
+          class="vk-alert__title"
           :class="{ 'with-desc': withDescription }"
           :style="{ display: center && !showIcon ? 'flow' : 'inline' }"
         >
           <slot name="title">{{ title }}</slot>
         </span>
-        <p class="er-alert__description">
+        <p class="vk-alert__description">
           <slot>{{ description }}</slot>
         </p>
-        <div class="er-alert__close" v-if="closable">
+        <div class="vk-alert__close" v-if="closable">
           <!-- icon 绑定点击事件 -->
           <Icon icon="times" @click.stop="close" />
         </div>
