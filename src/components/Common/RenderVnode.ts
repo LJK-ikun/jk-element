@@ -1,11 +1,13 @@
 import { defineComponent } from "vue";
 const RenderVnode = defineComponent({
+  //组件接收的props定义
   props: {
     vNode: {
       type: [String, Object],
       required: true,
     },
   },
+  //组合式api渲染入口，vue会自动执行这个函数调用渲染函数
   setup(props) {
     return () => props.vNode;
   },

@@ -1,4 +1,4 @@
-import type { VNode, ComponentPublicInstance } from "vue";
+import type { VNode, ComponentInternalInstance } from "vue";
 
 /*
  * Message组件的props类型定义
@@ -33,11 +33,11 @@ export interface MessageContext {
   //消息的虚拟节点
   vnode: VNode;
   //消息组件的实例对象
-  vm: ComponentPublicInstance;
+  vm: ComponentInternalInstance;
   //消息的属性对象
   props: MessageProps;
   //手动销毁消息实例的方法
-  destroy: () => void;
+  destory: () => void;
 }
 
 //创建消息时传入的属性
