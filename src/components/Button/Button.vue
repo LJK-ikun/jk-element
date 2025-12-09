@@ -18,11 +18,12 @@
       'is-plain': plain,
       'is-round': round,
       'is-circle': circle,
-      'is-disabled': disabled,
+      'is-disabled': disabled || loading,
     }"
-    :disabled="disabled"
+    :disabled="disabled || loading"
     :autofocus="autofocus"
     :type="nativeType"
+    @click="$emit('click')"
   >
     <Icon icon="spinner" spin v-if="loading" />
     <Icon :icon="icon" v-if="icon" />
@@ -51,6 +52,8 @@ defineOptions({
 withDefaults(defineProps<ButtonProps>(), {
   nativeType: "button",
 });
+
+const emit = defineEmits<{ (e: 'click'): void }>()
 
 // 创建对 button DOM 元素的引用
 // _ref 是一个 ref 对象，指向 <button> 元素
