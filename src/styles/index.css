@@ -1,4 +1,4 @@
 @import "./vars.scss";
 @import "./reset.css";
 @import "../components/Button/style.scss";
-@import "../components/Collapse/style.css";
+@import "../components/Collapse/style.scss";
